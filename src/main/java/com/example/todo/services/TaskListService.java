@@ -84,9 +84,7 @@ public class TaskListService {
 
     public TaskListDTO update(Long taskListId, TaskListRequestDTO taskListRequestDTO, String username){
         TaskList taskList = taskListRepository.getReferenceById(taskListId);
-        for(Task t : taskList.getTasks()) {
-            System.out.println(t);
-        }
+
         taskList.setName(taskListRequestDTO.getName());
         taskList.setDescription(taskList.getDescription());
 
@@ -98,7 +96,6 @@ public class TaskListService {
 
 
     public void delete(Long taskListId, String username){
-
         TaskList taskList = taskListRepository.findByIdAndUser(taskListId, getUserFromUsername(username))
                 .orElseThrow(() -> new ResourceNotFoundException(taskListId));
         makeTasksListIdNull(taskList);
